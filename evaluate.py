@@ -132,6 +132,8 @@ def evaluate(model, device, loss_fn, dataloader, metrics, deltaR, deltaR_dz, mod
 
         for i in range(1, len(bin_edges)):
             R_i=R_arr[np.where(inds==i)[0]]
+
+
             R_hist.append(np.mean(R_i))
             u_perp_i=u_perp_arr[np.where(inds==i)[0]]
             u_perp_scaled_i=u_perp_i/np.mean(R_i)

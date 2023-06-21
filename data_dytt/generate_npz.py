@@ -121,28 +121,90 @@ def future_savez(dataset,currentfile):
 
     nparticles_per_event = max(ak.num(events_selected.PFCands.pt, axis=1))
     print("max NPF in this range: ", nparticles_per_event)
+          
+    '''
+    print("pt")
+    pt = [ ak.fill_none(ak.pad_none(events_selected.PFCands.pt, nparticles_per_event,clip=True),-999.0)]
+    print(pt)
 
-    particle_list = ak.concatenate([
-                 [ ak.fill_none(ak.pad_none(events_selected.PFCands.pt, nparticles_per_event,clip=True),-999)           ] ,
-                 [ ak.fill_none(ak.pad_none(events_selected.PFCands.eta, nparticles_per_event,clip=True),-999)          ] ,
-                 [ ak.fill_none(ak.pad_none(events_selected.PFCands.phi, nparticles_per_event,clip=True),-999)          ] ,
-                 [ ak.fill_none(ak.pad_none(events_selected.PFCands.d0, nparticles_per_event,clip=True),-999)           ] ,
-                 [ ak.fill_none(ak.pad_none(events_selected.PFCands.dz, nparticles_per_event,clip=True),-999)           ] ,
-                 [ ak.fill_none(ak.pad_none(events_selected.PFCands.mass, nparticles_per_event,clip=True),-999)         ] ,
-                 [ ak.fill_none(ak.pad_none(events_selected.PFCands.puppiWeight, nparticles_per_event,clip=True),-999)  ] ,
-                 [ ak.fill_none(ak.pad_none(events_selected.PFCands.pdgId, nparticles_per_event,clip=True),-999)        ] ,
-                 [ ak.fill_none(ak.pad_none(events_selected.PFCands.charge, nparticles_per_event,clip=True),-999)        ] ,
-                 [ ak.fill_none(ak.pad_none(events_selected.PFCands.fromPV, nparticles_per_event,clip=True),-999)        ] ,
-                 [ ak.fill_none(ak.pad_none(events_selected.PFCands.pvRef, nparticles_per_event,clip=True),-999)         ] ,
-                 [ ak.fill_none(ak.pad_none(events_selected.PFCands.pvAssocQuality, nparticles_per_event,clip=True),-999)] ,
-    ])
-    npz_file=os.environ['PWD']+'/raw/'+dataset+'_file'+str(currentfile)+'_slice_'+str(i)+'_nevent_'+str(len(events_selected))
+    print("eta")
+    eta =  [ ak.fill_none(ak.pad_none(events_selected.PFCands.eta, nparticles_per_event,clip=True),-999.0)]          
+    print(eta)
+    
+    print("phi")
+    phi =  [ ak.fill_none(ak.pad_none(events_selected.PFCands.phi, nparticles_per_event,clip=True),-999.0)]          
+    print(phi)
+    
+    print("d0")
+    d0 = [ ak.fill_none(ak.pad_none(events_selected.PFCands.d0, nparticles_per_event,clip=True),-999.0) ]         
+    print(d0)
+    
+    print("dz")
+    dz = [ ak.fill_none(ak.pad_none(events_selected.PFCands.dz, nparticles_per_event,clip=True),-999.0) ]        
+    print(dz)
+    
+    print("mass")
+    mass = [ ak.fill_none(ak.pad_none(events_selected.PFCands.mass, nparticles_per_event,clip=True),-999.0) ]
+    print(mass)
+    
+    print("puppiWeight")
+    puppiWeight = [ ak.fill_none(ak.pad_none(events_selected.PFCands.puppiWeight, nparticles_per_event,clip=True),-999.0)  ]
+    print(puppiWeight)
+    
+    print("pdgId")
+    pdgId = [ ak.fill_none(ak.pad_none(events_selected.PFCands.pdgId, nparticles_per_event,clip=True),-999.0)]
+    print(pdgId)
+    
+    print("charge")
+    charge = [ ak.fill_none(ak.pad_none(events_selected.PFCands.charge, nparticles_per_event,clip=True),-999.0)]
+    print(charge)
+    
+    print("fromPV")
+    fromPV = [ ak.fill_none(ak.pad_none(events_selected.PFCands.fromPV, nparticles_per_event,clip=True),-999.0) ]
+    print(fromPV)
+    
+    print("pvRef")
+    pvRef = [ ak.fill_none(ak.pad_none(events_selected.PFCands.pvRef, nparticles_per_event,clip=True),-999.0) ]
+    print(pvRef)
+    
+    print("pvAssocQuality")
+    pvAssocQuality = [ ak.fill_none(ak.pad_none(events_selected.PFCands.pvAssocQuality, nparticles_per_event,clip=True),-999.0)]
+    print(pvAssocQuality)
+    '''
+    
+    print("concatenating")
+    try:
+        particle_list = ak.concatenate([
+                    [ ak.fill_none(ak.pad_none(events_selected.PFCands.pt, nparticles_per_event,clip=True),-999)           ] ,
+                    [ ak.fill_none(ak.pad_none(events_selected.PFCands.eta, nparticles_per_event,clip=True),-999)          ] ,
+                    [ ak.fill_none(ak.pad_none(events_selected.PFCands.phi, nparticles_per_event,clip=True),-999)          ] ,
+                    [ ak.fill_none(ak.pad_none(events_selected.PFCands.d0, nparticles_per_event,clip=True),-999)           ] ,
+                    [ ak.fill_none(ak.pad_none(events_selected.PFCands.dz, nparticles_per_event,clip=True),-999)           ] ,
+                    [ ak.fill_none(ak.pad_none(events_selected.PFCands.mass, nparticles_per_event,clip=True),-999)         ] ,
+                    [ ak.fill_none(ak.pad_none(events_selected.PFCands.puppiWeight, nparticles_per_event,clip=True),-999)  ] ,
+                    [ ak.fill_none(ak.pad_none(events_selected.PFCands.pdgId, nparticles_per_event,clip=True),-999)        ] ,
+                    [ ak.fill_none(ak.pad_none(events_selected.PFCands.charge, nparticles_per_event,clip=True),-999)        ] ,
+                    [ ak.fill_none(ak.pad_none(events_selected.PFCands.fromPV, nparticles_per_event,clip=True),-999)        ] ,
+                    [ ak.fill_none(ak.pad_none(events_selected.PFCands.pvRef, nparticles_per_event,clip=True),-999)         ] ,
+                    [ ak.fill_none(ak.pad_none(events_selected.PFCands.pvAssocQuality, nparticles_per_event,clip=True),-999)] ,
+        ])
+    except:
+        print("concatenation error")
+    
+    print(particle_list)
+    print("saving")
+    exit()
+    npz_file='/hildafs/projects/phy230010p/xiea/npzs/'+dataset+'/'+dataset+'_file'+str(currentfile)+'_slice_'+str(i)+'_nevent_'+str(len(events_selected))
+    
+    
     np.savez(npz_file,x=particle_list,y=met_list)
+    print("saving")
+    
 
 
 
 if __name__ == '__main__':
-
+        
         parser = OptionParser()
         parser.add_option('-d', '--dataset', help='dataset', dest='dataset')
         parser.add_option('-s', '--startfile',type=int, default=0, help='startfile')
@@ -153,6 +215,8 @@ if __name__ == '__main__':
                           help='How many leptons to be subtracted from the Candidates list. Can not be larger than the n_leptons', default=2)
         (options, args) = parser.parse_args()
 
+        '''
+        
         assert options.n_leptons >= options.n_leptons_subtract, "n_leptons_subtract can not be larger than n_leptons"
         datasetsname = {
             "dy": ['DYJetsToLL/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8'],
@@ -206,4 +270,50 @@ if __name__ == '__main__':
             if currentfile>=options.endfile:
                 print('=================> finished ')
                 exit()
+    '''
+        assert options.n_leptons >= options.n_leptons_subtract, "n_leptons_subtract can not be larger than n_leptons"
+        dataset=options.dataset
+        datasetsname = {
+            "dy",
+            "tt"
+        }
+        if dataset not in datasetsname:
+            print('choose one of them: ', datasetsname)
+            exit()
+        #Read file from json
+        with open(JSON_LOC, "r") as fo:
+            file_names = json.load(fo)
+        file_names = file_names[dataset]
+        print('find ', len(file_names)," files")
+        if options.startfile>=options.endfile and options.endfile!=-1:
+            print("make sure options.startfile<options.endfile")
+            exit()
+        inpz=0
+        eventperfile=5000
+        currentfile=0
+        for ifile in file_names:
+            if currentfile<options.startfile:
+                currentfile+=1
+                continue
+            events = NanoEventsFactory.from_root(ifile, schemaclass=NanoAODSchema).events()
+            nevents_total = len(events)
+            print(ifile, ' Number of events:', nevents_total)
 
+            for i in range(int(nevents_total / eventperfile)+1):
+                if i< int(nevents_total / eventperfile):
+                    print('from ',i*eventperfile, ' to ', (i+1)*eventperfile)
+                    events_slice = events[i*eventperfile:(i+1)*eventperfile]
+                elif i == int(nevents_total / eventperfile) and i*eventperfile<=nevents_total:
+                    print('from ',i*eventperfile, ' to ', nevents_total)
+                    events_slice = events[i*eventperfile:nevents_total]
+                else:
+                    print(' weird ... ')
+                    exit()
+                tic=time.time()
+                future_savez(dataset,currentfile)
+                toc=time.time()
+                print('time:',toc-tic)
+            currentfile+=1
+            if currentfile>=options.endfile:
+                print('=================> finished ')
+                exit()

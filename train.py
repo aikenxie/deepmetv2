@@ -37,6 +37,7 @@ def train(model, device, optimizer, scheduler, loss_fn, dataloader, epoch):
     loss_avg = utils.RunningAverage()
     with tqdm(total=len(dataloader)) as t:
         for data in dataloader:
+            print("data:",data)
             optimizer.zero_grad()
             data = data.to(device)
             x_cont = data.x[:,:8] #include puppi
@@ -62,13 +63,13 @@ def train(model, device, optimizer, scheduler, loss_fn, dataloader, epoch):
 if __name__ == '__main__':
     args = parser.parse_args()
 
-    dataloaders = data_loader.fetch_dataloader(data_dir=osp.join(os.environ['PWD'],args.data), 
+    dataloaders = data_loader.fetch_dataloader(data_dir=args.data, 
                                                batch_size=6,
                                                validation_split=.2)
+    
     train_dl = dataloaders['train']
     test_dl = dataloaders['test']
 
-    print(len(train_dl), len(test_dl))
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')    
     model = net.Net(8, 3).to(device) #include puppi
     #model = net.Net(7, 3).to(device) #remove puppi
@@ -82,7 +83,7 @@ if __name__ == '__main__':
     loss_fn = net.loss_fn
     metrics = net.metrics
 
-    model_dir = osp.join(os.environ['PWD'],args.ckpts)
+    model_dir = args.ckpts
     loss_log = open(model_dir+'/loss.log', 'w')
     loss_log.write('# loss log for training starting in '+strftime("%Y-%m-%d %H:%M:%S", gmtime()) + '\n')
     loss_log.write('epoch, loss, val_loss\n')
