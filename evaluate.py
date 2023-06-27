@@ -116,7 +116,6 @@ def evaluate(model, device, loss_fn, dataloader, metrics, deltaR, deltaR_dz, mod
     qT_hist=[]
     for i in range(1, len(bin_edges)):
         qT_hist.append((bin_edges[i]+bin_edges[i-1])/2.)
-    
     resolution_hists={}
     for key in resolutions_arr:
 
@@ -129,20 +128,24 @@ def evaluate(model, device, loss_fn, dataloader, metrics, deltaR, deltaR_dz, mod
         u_par_hist=[]
         u_par_scaled_hist=[]
         R_hist=[]
-        print(bin_edges)
         for i in range(1, len(bin_edges)):
             R_i=R_arr[np.where(inds==i)[0]]
             R_hist.append(np.mean(R_i))
             u_perp_i=u_perp_arr[np.where(inds==i)[0]]
-            u_perp_scaled_i=u_perp_i/np.mean(R_i)
-            print("u_perp_i",u_perp_i)
-            u_perp_hist.append((np.quantile(u_perp_i,0.84)-np.quantile(u_perp_i,0.16))/2.)
-            u_perp_scaled_hist.append((np.quantile(u_perp_scaled_i,0.84)-np.quantile(u_perp_scaled_i,0.16))/2.)
-            u_par_i=u_par_arr[np.where(inds==i)[0]]
-            u_par_scaled_i=u_par_i/np.mean(R_i)
-            u_par_hist.append((np.quantile(u_par_i,0.84)-np.quantile(u_par_i,0.16))/2.)
-            u_par_scaled_hist.append((np.quantile(u_par_scaled_i,0.84)-np.quantile(u_par_scaled_i,0.16))/2.)
-
+            if not np.any(u_perp_i):
+                u_perp_hist.append([])
+                u_par_hist.append([])
+                u_par_scaled_hist.append([])
+                u_perp_scaled_hist.append([])
+            
+            else:
+                u_perp_scaled_i=u_perp_i/np.mean(R_i)    
+                u_perp_hist.append((np.quantile(u_perp_i,0.84)-np.quantile(u_perp_i,0.16))/2.)
+                u_perp_scaled_hist.append((np.quantile(u_perp_scaled_i,0.84)-np.quantile(u_perp_scaled_i,0.16))/2.)
+                u_par_i=u_par_arr[np.where(inds==i)[0]]
+                u_par_scaled_i=u_par_i/np.mean(R_i)
+                u_par_hist.append((np.quantile(u_par_i,0.84)-np.quantile(u_par_i,0.16))/2.)
+                u_par_scaled_hist.append((np.quantile(u_par_scaled_i,0.84)-np.quantile(u_par_scaled_i,0.16))/2.)
         u_perp_resolution=np.histogram(qT_hist, bins=x_n, range=(0,max_x), weights=u_perp_hist)
         u_perp_scaled_resolution=np.histogram(qT_hist, bins=x_n, range=(0,max_x), weights=u_perp_scaled_hist)
         u_par_resolution=np.histogram(qT_hist, bins=x_n, range=(0,max_x), weights=u_par_hist)

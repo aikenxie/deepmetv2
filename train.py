@@ -25,9 +25,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--restore_file', default=None,
                     help="Optional, name of the file in --model_dir containing weights to reload before \
                     training")  # 'best' or 'train'
-parser.add_argument('--data', default='data',
+parser.add_argument('--data', default='/hildafs/projects/phy230010p/xiea/npzs/dy',
                     help="Name of the data folder")
-parser.add_argument('--ckpts', default='ckpts',
+parser.add_argument('--ckpts', default='/hildafs/projects/phy230010p/xiea/checkpoints',
                     help="Name of the ckpts folder")
 
 
